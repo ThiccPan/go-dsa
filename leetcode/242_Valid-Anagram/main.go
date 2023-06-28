@@ -4,8 +4,8 @@ import "fmt"
 
 // my first try
 func isAnagram(s string, t string) bool {
-    strMap := map[rune]int{}
-	
+	strMap := map[rune]int{}
+
 	if len(s) != len(t) {
 		return false
 	}
@@ -18,12 +18,19 @@ func isAnagram(s string, t string) bool {
 
 	// check if any rune is occuring odd times
 	// if so then not anagram
+
+	// unoptimized checking
+	// for _, v := range strMap {
+	// 	if v % 2 != 0 || v < 0{
+	// 		return false
+	// 	}
+	// }
+
 	for _, v := range strMap {
-		if v % 2 != 0 || v < 0{
+		if v != 0 {
 			return false
 		}
 	}
-
 	return true
 }
 
