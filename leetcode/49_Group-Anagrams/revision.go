@@ -9,7 +9,7 @@ func strKey(str string) (key Key) {
 	return key
 }
 
-func groupAnagramsRevision(strs []string) [][]string {
+func GroupAnagramsRevision(strs []string) [][]string {
 	subStrMap := make(map[Key][]string)
 	subStrs := [][]string{}
 
