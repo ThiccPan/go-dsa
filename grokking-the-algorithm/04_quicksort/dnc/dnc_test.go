@@ -1,9 +1,7 @@
 package dnc
 
 import (
-	"context"
 	"testing"
-	"time"
 )
 
 func TestRecSum(t *testing.T) {
@@ -59,14 +57,8 @@ func Test(t *testing.T) {
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
-			ctx := context.Background()
-			deadline := time.Now().Add(1500 * time.Millisecond)
-			ctx, cancelCtx := context.WithDeadline(ctx, deadline)
-			defer cancelCtx()
-			
 			lastIdx := len(tC.arr)-1
 			searchIdx := RecursiveBSearch(tC.arr, tC.search, 0, lastIdx, lastIdx/2)
-			cancelCtx()
 			if searchIdx != tC.expected {
 				t.Error("got:", searchIdx, ", expected:", tC.expected)
 			}
