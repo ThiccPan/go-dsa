@@ -21,3 +21,14 @@ func TestRecursiveLen(t *testing.T) {
 	}
 	t.Log(listLen)
 }
+
+func TestRecursiveSum(t *testing.T) {
+	node3 := Node{Value: 3}
+	node2 := Node{Value: 2, Next: &node3}
+	node1 := Node{Value: 1, Next: &node2}
+	sum := RecursiveSum(&node1)
+	if sum != 6 {
+		t.Error("nopers")
+	}
+	t.Log(sum)
+}
