@@ -1,9 +1,13 @@
 package dnc
 
-import "testing"
+import (
+	"context"
+	"testing"
+	"time"
+)
 
 func TestRecSum(t *testing.T) {
-	val := RecSum([]int{1,2,3,4,5}, 4)
+	val := RecSum([]int{1, 2, 3, 4, 5}, 4)
 	expected := 15
 	if val != expected {
 		t.Error("nopers")
@@ -31,4 +35,41 @@ func TestRecursiveSum(t *testing.T) {
 		t.Error("nopers")
 	}
 	t.Log(sum)
+}
+
+func Test(t *testing.T) {
+	testCases := []struct {
+		desc     string
+		arr      []int
+		search   int
+		expected int
+	}{
+		{
+			desc: "success with odd arr len",
+			arr: []int{1,2,3,4,5,6,7,8,9},
+			search: 4,
+			expected: 3,
+		},
+		{
+			desc: "success with even arr len",
+			arr: []int{1,2,3,4,5,6,8,9},
+			search: 8,
+			expected: 6,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			ctx := context.Background()
+			deadline := time.Now().Add(1500 * time.Millisecond)
+			ctx, cancelCtx := context.WithDeadline(ctx, deadline)
+			defer cancelCtx()
+			
+			lastIdx := len(tC.arr)-1
+			searchIdx := RecursiveBSearch(tC.arr, tC.search, 0, lastIdx, lastIdx/2)
+			cancelCtx()
+			if searchIdx != tC.expected {
+				t.Error("got:", searchIdx, ", expected:", tC.expected)
+			}
+		})
+	}
 }
